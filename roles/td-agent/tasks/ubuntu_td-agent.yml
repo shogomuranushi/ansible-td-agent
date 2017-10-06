@@ -6,7 +6,11 @@
     - python-pycurl
 
 - name: Add the Treasuredata apt key
-  apt_key: url=http://packages.treasuredata.com/GPG-KEY-td-agent state=present
+  apt_key: url=https://packages.treasuredata.com/GPG-KEY-td-agent state=present
+
+- name: Add apt repository
+  apt_repository: repo='deb http://packages.treasuredata.com/2/ubuntu/xenial/ xenial contrib' state=present
+  when: ansible_distribution_version == '16.04'
 
 - name: Add apt repository
   apt_repository: repo='deb [arch={{ td_agent_architecture }}] http://packages.treasuredata.com/2/ubuntu/trusty/ trusty contrib' state=present
